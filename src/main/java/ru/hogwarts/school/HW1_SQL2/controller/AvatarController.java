@@ -1,5 +1,6 @@
 package ru.hogwarts.school.HW1_SQL2.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,8 +54,13 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
-    @GetMapping
+    /* @GetMapping
     public List<Avatar> findByPagination(@RequestParam int page,
+                                         @RequestParam int size){
+        return avatarService.findByPagination(page, size);
+    }*/
+    @GetMapping
+    public Page<Avatar> findByPagination(@RequestParam int page,
                                          @RequestParam int size){
         return avatarService.findByPagination(page, size);
     }
