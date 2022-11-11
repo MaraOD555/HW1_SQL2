@@ -1,6 +1,8 @@
 package ru.hogwarts.school.HW1_SQL2.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.HW1_SQL2.model.Avatar;
@@ -12,6 +14,8 @@ import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -63,4 +67,13 @@ public class AvatarService {
         // в нашей строке и возвращает все, что находится после этой точки
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         }
+    /*public List<Avatar> findByPagination (int page, int size){ //постраничный запрос и выдача результата
+        return avatarRepository.findAll(PageRequest.of(page, size)).get() // реализация PageRequest и статический метод of(int page, int size), позволяют
+                // создавать объекты этого класса в нем, нумерация начинается с 0, напримет 1-я страница 10 объектов(0,10)
+                  .collect(Collectors.toList());
+    }*/
+    public Page<Avatar> findByPagination (int page, int size){
+        PageRequest pageRequest = PageRequest.of(page -1, size);
+        return avatarRepository.findAll(pageRequest);
+    }
 }

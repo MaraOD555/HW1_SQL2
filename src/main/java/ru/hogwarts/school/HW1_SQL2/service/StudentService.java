@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.HW1_SQL2.model.Student;
 import ru.hogwarts.school.HW1_SQL2.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -31,6 +34,20 @@ public class StudentService {
 
     public Collection<Student> findByAgeBetween(int from, int to) {
         return studentRepository.findByAgeBetween(from, to);
+    }
+   public Collection<Student> getAllStudents(){
+ return studentRepository.findAll();
+  }
+
+    public int totalCountOfStudents() {
+        return studentRepository.totalCountOfStudents();
+    }
+    public double averageAgeOfStudents(){
+        return studentRepository.averageAgeOfStudents();
+    }
+    public List<Student> lastStudents (){
+        return new ArrayList<>(studentRepository.lastStudents());
+
     }
 }
 

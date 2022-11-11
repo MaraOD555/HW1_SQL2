@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.HW1_SQL2.model.Student;
 import ru.hogwarts.school.HW1_SQL2.service.StudentService;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -47,9 +48,26 @@ public class StudentController {
         }
        return ResponseEntity.noContent().build();
     }
-    @GetMapping
+    @GetMapping(value = "from, to")
     public ResponseEntity<Collection<Student>> findByAgeBetween (@RequestParam int from,
                                                                  @RequestParam int to){
         return ResponseEntity.ok(studentService.findByAgeBetween(from, to));
+    }
+   /* @GetMapping
+    public ResponseEntity<Collection<Student>> getAll(){
+        Collection<Student> students = studentService.getAllStudents();
+        return ResponseEntity.ok(students);
+    }*/
+    @GetMapping("/totalCount")
+    public int totalCountStudents(){
+        return studentService.totalCountOfStudents();
+    }
+    @GetMapping("averageAge")
+    public double averageAgeOfStudents(){
+        return studentService.averageAgeOfStudents();
+    }
+    @GetMapping("/lastStudents")
+    public List<Student> lastStudents(){
+        return studentService.lastStudents();
     }
 }
